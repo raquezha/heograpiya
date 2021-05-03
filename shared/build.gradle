@@ -34,7 +34,7 @@ configurations {
 }
 
 dependencies {
-    testImplementation test.junit
-    androidTestImplementation test.junit_test
-    androidTestImplementation test.espresso
+    testImplementation _test.junit
+    androidTestImplementation _test.junit_test
+    androidTestImplementation _test.espresso
 }

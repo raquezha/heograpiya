@@ -32,7 +32,7 @@ dependencies {
     testImplementation project(path: ':shared', configuration: 'testDependencies')
     androidTestImplementation project(path: ':shared', configuration: 'androidTestDependencies')
 
-    api libs.lottie
+    api _libs.lottie
 
     implementation project(':shared')
 }
