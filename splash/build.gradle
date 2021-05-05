@@ -3,8 +3,19 @@ plugins {
     id 'kotlin-android'
 }
 
+android {
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+            testLogging {
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+            }
+        }
+    }
+}
+
 dependencies {
-    api _libs.lottie
+    implementation _libs.lottie
 
     implementation project(':shared')
 

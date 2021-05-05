@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
+apply plugin: 'kotlin-android'
 
 // kudos to Chris Margonis' solution https://stackoverflow.com/q/52587491/
 configurations {
@@ -10,7 +11,16 @@ configurations {
 }
 
 dependencies {
-    testImplementation _test.junit
+    api _jetbrains.kotlin
+    api _androidx.core_ktx
+
+    testImplementation _test.jupiter
+    testImplementation _test.jupiter_api
+    testImplementation _test.jupiter_params
+    testRuntimeOnly _test.jupiter_engine
+
+    testImplementation _test.mockk
+    testImplementation _test.mockk_android
     androidTestImplementation _test.junit_test
     androidTestImplementation _test.espresso
 }

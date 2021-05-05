@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+apply plugin: 'kotlin-android'
 
 android {
 
@@ -13,7 +14,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation _androidx.core_ktx
     implementation _androidx.appcompat
     implementation _androidx.contraintlayout
     implementation _androidx.livedata

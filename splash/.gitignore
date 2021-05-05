@@ -21,6 +21,7 @@ release/
 # Gradle files
 .gradle/
 build/
+.kotlintest
 
 # Local configuration file (sdk path, etc)
 local.properties
