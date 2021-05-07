@@ -1,24 +1,26 @@
 package com.raquezha.heograpiya.splash
 
 
-import io.mockk.clearMocks
-import io.mockk.mockk
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 
-class SampleTestTest {
+internal class SampleTestTest {
 
-    private val sampleTest: SampleTest = mockk(relaxed = true)
+    private lateinit var sampleTest: SampleTest
 
     @BeforeEach
-    fun init() {
-        clearMocks(sampleTest)
+    fun setUp() {
+        sampleTest = SampleTest()
+    }
+
+    @AfterEach
+    fun tearDown() {
+        print("success!")
     }
 
     @Test
     fun `should return true`() {
-        val sampleTest = SampleTest().test()
-        assert(sampleTest)
+        assert(sampleTest.test())
     }
 }

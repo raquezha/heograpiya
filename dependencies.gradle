@@ -31,5 +31,4 @@ ext {
     _libs = [
             lottie : 'com.airbnb.android:lottie:3.5.0'
     ]
-
 }

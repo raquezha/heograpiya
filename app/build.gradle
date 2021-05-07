@@ -2,14 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
-apply plugin: 'kotlin-android'
-
-android {
-
-    defaultConfig {
-        applicationId "com.raquezha.heograpiya"
-    }
-}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -25,9 +17,17 @@ dependencies {
 
     implementation _android.viewbinding
 
-
     api project(':shared')
 
     testImplementation project(path: ':shared', configuration: 'testDependencies')
     androidTestImplementation project(path: ':shared', configuration: 'androidTestDependencies')
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
 }

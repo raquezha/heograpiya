@@ -3,17 +3,6 @@ plugins {
     id 'kotlin-android'
 }
 
-android {
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-            testLogging {
-                events "passed", "skipped", "failed", "standardOut", "standardError"
-            }
-        }
-    }
-}
-
 dependencies {
     implementation _libs.lottie
 
@@ -21,4 +10,14 @@ dependencies {
 
     testImplementation project(path: ':shared', configuration: 'testDependencies')
     androidTestImplementation project(path: ':shared', configuration: 'androidTestDependencies')
+}
+
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
 }

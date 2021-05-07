@@ -23,8 +23,20 @@ plugins {
 
 apply plugin: 'nl.neotech.plugin.rootcoverage'
 
-subprojects {
+jacoco {
+    toolVersion = "0.8.7"
+}
 
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+}
+
+subprojects {
     afterEvaluate { project ->
         if (project.hasProperty('android')) {
             android {
@@ -68,8 +80,11 @@ subprojects {
                     main {
                         java.srcDirs = ['src/main/kotlin']
                     }
-                    androidTest{
-                        java.srcDirs = ['src/maina/test']
+                    androidTest {
+                        java.srcDirs = ['src/androidTest/kotlin']
+                    }
+                    test {
+                        java.srcDirs = ['src/test/kotlin']
                     }
                 }
             }

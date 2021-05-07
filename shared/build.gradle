@@ -24,3 +24,12 @@ dependencies {
     androidTestImplementation _test.junit_test
     androidTestImplementation _test.espresso
 }
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+}

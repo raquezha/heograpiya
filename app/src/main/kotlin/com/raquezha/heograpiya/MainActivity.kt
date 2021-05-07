@@ -16,31 +16,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
-
-        val navView: BottomNavigationView = binding.navView
-
-        val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.nav_controller_view_tag
-        ) as NavHostFragment
-        val navController = navHostFragment.navController
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.navigation_dashboard,
-                R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(
-            navController,
-            appBarConfiguration
-        )
-        navView.setupWithNavController(navController)
+//
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//
+//        setContentView(binding.root)
+//
+//        val navView: BottomNavigationView = binding.navView
+//
+//        val navHostFragment = supportFragmentManager.findFragmentById(
+//            R.id.nav_controller_view_tag
+//        ) as NavHostFragment
+//        val navController = navHostFragment.navController
+//
+//        // Passing each menu ID as a set of Ids because each
+//        // menu should be considered as top level destinations.
+//        val appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.navigation_home,
+//                R.id.navigation_dashboard,
+//                R.id.navigation_notifications
+//            )
+//        )
+//        setupActionBarWithNavController(
+//            navController,
+//            appBarConfiguration
+//        )
+//        navView.setupWithNavController(navController)
     }
 }
