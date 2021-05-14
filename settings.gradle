@@ -12,3 +12,6 @@ rootProject.name = "Heograpiya"
 include ':app'
 include ':shared'
 include ':splash'
+include ':design'
+include ':settings'
+include ':engine'
