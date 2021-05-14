@@ -12,6 +12,8 @@ buildscript {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0'
         classpath 'com.google.gms:google-services:4.3.6'
         classpath 'nl.neotech.plugin:android-root-coverage-plugin:1.4.0'
+        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.0-RC3'
+        classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.0.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -41,6 +43,20 @@ tasks.withType(Test) {
 }
 
 subprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+    apply plugin: "io.gitlab.arturbosch.detekt"
+
+    ktlint {
+        android.set(true)
+        outputColorName.set("RED")
+    }
+
+    detekt {
+        config = files("${rootDir}/detekt.yml")
+        baseline = file("${rootDir}/detekt-baseline.xml")
+        parallel = true
+    }
+
     afterEvaluate { project ->
         if (project.hasProperty('android')) {
             android {

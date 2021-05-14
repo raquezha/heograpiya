@@ -12,13 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.raquezha.heograpiya.shared.contentView
 import com.raquezha.heograpiya.splash.databinding.ActivitySplashBinding
 
-class SplashActivity: AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
     private val binding: ActivitySplashBinding by contentView(R.layout.activity_splash)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-80
+        80
         enableFullScreenMode()
 
         actionBar?.hide()
@@ -29,7 +29,6 @@ class SplashActivity: AppCompatActivity() {
             "splash1"
         )
         binding.lottie.setFailureListener {
-
         }
         binding.lottie.playAnimation()
     }
@@ -45,14 +44,14 @@ class SplashActivity: AppCompatActivity() {
             controller.systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
             controller.hide(all())
-            controller.setSystemBarsAppearance(0,0)
+            controller.setSystemBarsAppearance(0, 0)
         }
         else -> {
             window.addFlags(
                 SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        or SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or SYSTEM_UI_FLAG_LAYOUT_STABLE
             )
         }
     }
