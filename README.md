@@ -10,6 +10,7 @@ Heograpiya is simple android app the showcase the use different Maps SDKs like *
 Icon made by Pixel perfect from www.flaticon.com
 #
 #
+#
 
 ### Todos
 - [ ] GMS & HMS dynamic multi-module integration
