@@ -8,8 +8,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.0-alpha15'
+        //noinspection DifferentKotlinGradleVersion
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0'
-        classpath 'com.google.gms:google-services:4.3.5'
+        classpath 'com.google.gms:google-services:4.3.6'
         classpath 'nl.neotech.plugin:android-root-coverage-plugin:1.4.0'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -23,12 +24,15 @@ plugins {
 
 apply plugin: 'nl.neotech.plugin.rootcoverage'
 
-jacoco {
-    toolVersion = "0.8.7"
+allprojects {
+    jacoco {
+        toolVersion = "0.8.7"
+    }
 }
 
 tasks.withType(Test) {
     useJUnitPlatform()
+    getExecutionData().setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
     testLogging {
         exceptionFormat "full"
         events "started", "skipped", "passed", "failed"
@@ -74,6 +78,7 @@ subprojects {
 
                 buildFeatures {
                     viewBinding true
+                    dataBinding true
                 }
 
                 sourceSets {

@@ -18,6 +18,7 @@ dependencies {
     implementation _android.viewbinding
 
     api project(':shared')
+    api project(':splash')
 
     testImplementation project(path: ':shared', configuration: 'testDependencies')
     androidTestImplementation project(path: ':shared', configuration: 'androidTestDependencies')

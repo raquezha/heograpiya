@@ -1,5 +1,6 @@
 package com.raquezha.heograpiya.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.raquezha.heograpiya.R
 import com.raquezha.heograpiya.databinding.FragmentHomeBinding
+import com.raquezha.heograpiya.splash.SplashActivity
 
 class HomeFragment : Fragment() {
 
@@ -38,6 +40,12 @@ class HomeFragment : Fragment() {
                 textView.text = it
             }
         )
+        textView.setOnClickListener {
+            Intent(
+                activity,
+                SplashActivity::class.java
+            ).run(requireActivity()::startActivity)
+        }
         return root
     }
 
