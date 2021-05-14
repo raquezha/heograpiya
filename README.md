@@ -38,3 +38,9 @@ The next generation of JUnit. The goal is to create an up-to-date foundation for
 
 #### [Mockk](https://mockk.io/)
  A mocking framework built for Kotlin. Like Mockito, Mockk allows you to create and stub objects within your test code. Mocking objects allows you to test in isolation other objects.
+
+#### [Detekt](https://github.com/detekt/detekt)
+A static code analysis tool for the Kotlin programming language. It operates on the abstract syntax tree provided by the Kotlin compiler.
+
+#### [Ktlint-Gradle](https://github.com/JLLeitschuh/ktlint-gradle)
+A plugin that creates convenient tasks that run ktlint checks or do code auto format.
