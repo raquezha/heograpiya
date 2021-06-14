@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        80
+
         enableFullScreenMode()
 
         actionBar?.hide()

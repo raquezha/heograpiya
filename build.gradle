@@ -7,10 +7,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0-alpha15'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha02'
         //noinspection DifferentKotlinGradleVersion
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0'
-        classpath 'com.google.gms:google-services:4.3.6'
+        classpath 'com.google.gms:google-services:4.3.8'
         classpath 'nl.neotech.plugin:android-root-coverage-plugin:1.4.0'
         classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.0-RC3'
         classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.0.0'
@@ -24,7 +24,6 @@ plugins {
     id "nl.neotech.plugin.rootcoverage" version "1.4.0"
 }
 
-apply plugin: 'nl.neotech.plugin.rootcoverage'
 
 allprojects {
     jacoco {
@@ -112,6 +111,9 @@ subprojects {
         }
     }
 }
+
+
+apply plugin: 'nl.neotech.plugin.rootcoverage'
 
 task clean(type: Delete) {
     delete rootProject.buildDir
