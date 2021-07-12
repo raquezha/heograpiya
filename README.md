@@ -30,7 +30,6 @@ Icon made by Pixel perfect from www.flaticon.com
 
  A SharedPreference alternative. It's Data storage solution that allows you to store key-value pairs or typed objects with protocol buffers. DataStore uses Kotlin coroutines and Flow to store data asynchronously, consistently, and transactionally.
 
-
 #### [Android-Root-Coverage-Plugin](https://github.com/NeoTech-Software/android-root-coverage-plugin)
 A Gradle plugin for easy generation of combined code coverage reports for Android projects with multiple modules.
 

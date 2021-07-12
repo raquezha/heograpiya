@@ -4,7 +4,10 @@ plugins {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation project(':shared')
+    api _androidx.datastore
 
     testImplementation project(path: ':shared', configuration: 'testDependencies')
     androidTestImplementation project(path: ':shared', configuration: 'androidTestDependencies')
