@@ -1,13 +1,12 @@
 package com.raquezha.heograpiya
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import com.here.android.mpa.common.GeoCoordinate
 import com.here.android.mpa.common.GeoPolygon
 import com.here.android.mpa.common.OnEngineInitListener
@@ -26,22 +25,25 @@ import com.here.android.mpa.routing.RouteWaypoint
 import com.here.android.mpa.routing.Router
 import com.here.android.mpa.routing.RoutingError
 import com.here.android.mpa.routing.RoutingZone
+import com.raquezha.heograpiya.databinding.ActivityHeremapsBinding
 import java.util.EnumSet
 
 /**
  * This class encapsulates the properties and functionality of the Map view.A route calculation from
  * south of Berlin to the north of Berlin.
  */
-class MapFragmentView(private val m_activity: AppCompatActivity) {
+class MapFragmentView(
+    private val activity: AppCompatActivity,
+    private val binding: ActivityHeremapsBinding
+) {
 
     private var mapFragment: AndroidXMapFragment? = null
-    private var createRouteButton: Button? = null
     private var map: Map? = null
     private var mapRoute: MapRoute? = null
     private var isExcludeRoutingZones = false
     private var addAvoidedAreas = false
     private val mMapFragment: AndroidXMapFragment?
-        get() = m_activity.supportFragmentManager.findFragmentById(R.id.mapfragment) as AndroidXMapFragment?
+        get() = activity.supportFragmentManager.findFragmentById(R.id.mapfragment) as AndroidXMapFragment?
 
     private fun initMapFragment() {
         /* Locate the mapFragment UI element */
@@ -61,10 +63,10 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
                     /* Set the zoom level to the average between min and max zoom level. */
                     map!!.zoomLevel = (map!!.maxZoomLevel + map!!.minZoomLevel) / 2
                 } else {
-                    AlertDialog.Builder(m_activity)
+                    AlertDialog.Builder(activity)
                         .setMessage("Error : " + error.name + "\n\n" + error.details)
                         .setTitle(R.string.engine_init_error)
-                        .setNegativeButton(android.R.string.cancel) { _, _ -> m_activity.finish() }
+                        .setNegativeButton(android.R.string.cancel) { _, _ -> activity.finish() }
                         .create()
                         .show()
                 }
@@ -73,8 +75,7 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
     }
 
     private fun initCreateRouteButton() {
-        createRouteButton = m_activity.findViewById<View>(R.id.btnCreateRoute) as AppCompatButton
-        createRouteButton!!.setOnClickListener {
+        binding.btnCreateRoute.setOnClickListener {
             if(mapRoute != null)
                 map?.removeMapObject((mapRoute)!!)
             mapRoute = null
@@ -82,6 +83,7 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun createRoute(excludedRoutingZones: List<RoutingZone>) {
 
         /* Initialize a CoreRouter */
@@ -144,29 +146,52 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
 
         /* Finally set the route option */
         routePlan.routeOptions = routeOptions
+        val start = GeoCoordinate(13.6221908,123.1919845)
+        val end = GeoCoordinate(13.664829,123.2810053)
+
+        val absoluteDistance = start.distanceTo(end)
+
+        binding.tvAbsoluteDistance.text = "Absolute Distance: ${absoluteDistance.toKilometers()} km"
+        binding.tvAbsoluteDistance.visibility = View.VISIBLE
 
         /* Define waypoints for the route */
         /* START: South of Berlin */
-        val startPoint = RouteWaypoint(GeoCoordinate(13.6221908,123.1919845))
+        val startPoint = RouteWaypoint(start)
         /* END: North of Berlin */
-        val destination = RouteWaypoint(GeoCoordinate(13.664829,123.2810053))
+        val destination = RouteWaypoint(end)
 
-        /* Add both waypoints to the route plan */routePlan.addWaypoint(startPoint)
+        /* Add both waypoints to the route plan */
+        routePlan.addWaypoint(startPoint)
         routePlan.addWaypoint(destination)
 
         /* Trigger the route calculation,results will be called back via the listener */
         coreRouter.calculateRoute(
             routePlan,
-
             object : Router.Listener<List<RouteResult>, RoutingError> {
+
                 override fun onProgress(i: Int) {
                     /* The calculation progress can be retrieved in this callback. */
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onCalculateRouteFinished(
                     routeResults: List<RouteResult>,
                     routingError: RoutingError
                 ) {
+                    if (routingError == RoutingError.NONE && routeResults.isNotEmpty()) {
+                        // length in meters
+                        val length: Int = routeResults[0].route.length
+
+                        binding.tvDistance.text = "Route Distance: ${length.toKilometers()} km"
+                        binding.tvDistance.visibility = View.VISIBLE
+
+                        Toast.makeText(
+                            activity,
+                            "Route Calculation Successful!",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
                     /* Calculation is done. Let's handle the result */
                     if (routingError == RoutingError.NONE) {
                         val route = routeResults[0].route
@@ -197,7 +222,7 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
                         }
                     } else {
                         Toast.makeText(
-                            m_activity,
+                            activity,
                             "Error:route calculation returned error code: $routingError",
                             Toast.LENGTH_LONG
                         ).show()
@@ -220,7 +245,7 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
                 isExcludeRoutingZones = item.isChecked
                 if (mapRoute != null) {
                     Toast.makeText(
-                        m_activity, "Please recalculate the route to apply this setting",
+                        activity, "Please recalculate the route to apply this setting",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -229,7 +254,7 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
                 addAvoidedAreas = item.isChecked
                 if (mapRoute != null) {
                     Toast.makeText(
-                        m_activity, "Please recalculate the route to apply this setting",
+                        activity, "Please recalculate the route to apply this setting",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -271,6 +296,14 @@ class MapFragmentView(private val m_activity: AppCompatActivity) {
             }
             return ids
         }
+    }
+
+    private fun Double.toKilometers(): Double {
+        return this / 1000
+    }
+
+    private fun Int.toKilometers(): Double {
+        return this / 1000.0
     }
 
     init {

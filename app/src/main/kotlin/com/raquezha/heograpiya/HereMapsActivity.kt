@@ -18,16 +18,6 @@ open class HereMapsActivity : AppCompatActivity() {
         ActivityHeremapsBinding.inflate(layoutInflater)
     }
 
-    // permissions request code
-    private val REQUEST_CODE_ASK_PERMISSIONS = 1
-
-    /**
-     * Permissions that need to be explicitly requested from end user.
-     */
-    private val REQUIRED_SDK_PERMISSIONS = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION
-    )
-
     private var mapFragmentView: MapFragmentView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +49,7 @@ open class HereMapsActivity : AppCompatActivity() {
 
         // All permission requests are being handled. Create map fragment view. Please note
         // the HERE Mobile SDK requires all permissions defined above to operate properly.
-        mapFragmentView = MapFragmentView(this)
+        mapFragmentView = MapFragmentView(this, binding)
         invalidateOptionsMenu()
     }
 
@@ -113,4 +103,18 @@ open class HereMapsActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    companion object {
+        // permissions request code
+        private const val REQUEST_CODE_ASK_PERMISSIONS = 1
+
+        /**
+         * Permissions that need to be explicitly requested from end user.
+         */
+        private val REQUIRED_SDK_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+    }
+
 }
