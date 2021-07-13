@@ -37,20 +37,28 @@ open class HereMapsActivity : AppCompatActivity() {
         } else mapFragmentView!!.onOptionsItemSelected(item)
     }
 
-    private fun createRoute() {
-
-    }
     private fun setupMapFragmentView() {
         setContentView(binding.root)
-
-        binding.btnCreateRoute.setOnClickListener {
-            createRoute()
-        }
 
         // All permission requests are being handled. Create map fragment view. Please note
         // the HERE Mobile SDK requires all permissions defined above to operate properly.
         mapFragmentView = MapFragmentView(this, binding)
         invalidateOptionsMenu()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapFragmentView?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapFragmentView?.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapFragmentView?.onDestroy()
     }
 
     /**

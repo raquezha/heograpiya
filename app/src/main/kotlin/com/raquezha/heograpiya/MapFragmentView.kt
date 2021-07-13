@@ -2,6 +2,7 @@ package com.raquezha.heograpiya
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.PointF
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -9,7 +10,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.here.android.mpa.common.GeoCoordinate
 import com.here.android.mpa.common.GeoPolygon
+import com.here.android.mpa.common.GeoPosition
 import com.here.android.mpa.common.OnEngineInitListener
+import com.here.android.mpa.common.PositioningManager
+import com.here.android.mpa.common.PositioningManager.LocationMethod
+import com.here.android.mpa.common.PositioningManager.LocationStatus
+import com.here.android.mpa.common.PositioningManager.OnPositionChangedListener
+import com.here.android.mpa.common.PositioningManager.getInstance
 import com.here.android.mpa.common.RoadElement
 import com.here.android.mpa.mapping.AndroidXMapFragment
 import com.here.android.mpa.mapping.Map
@@ -26,7 +33,9 @@ import com.here.android.mpa.routing.Router
 import com.here.android.mpa.routing.RoutingError
 import com.here.android.mpa.routing.RoutingZone
 import com.raquezha.heograpiya.databinding.ActivityHeremapsBinding
+import java.lang.ref.WeakReference
 import java.util.EnumSet
+
 
 /**
  * This class encapsulates the properties and functionality of the Map view.A route calculation from
@@ -42,6 +51,8 @@ class MapFragmentView(
     private var mapRoute: MapRoute? = null
     private var isExcludeRoutingZones = false
     private var addAvoidedAreas = false
+    private var isPaused = false
+    private var posManager: PositioningManager? = null
     private val mMapFragment: AndroidXMapFragment?
         get() = activity.supportFragmentManager.findFragmentById(R.id.mapfragment) as AndroidXMapFragment?
 
@@ -53,12 +64,26 @@ class MapFragmentView(
             mapFragment!!.init { error ->
                 if (error == OnEngineInitListener.Error.NONE) {
                     /* get the map object */
+
                     map = mapFragment!!.map
+
                     assert(map != null)
                     map!!.setCenter(
                         GeoCoordinate(13.6221908,123.1919845, 0.0),
                         Map.Animation.NONE
                     )
+
+                    map?.positionIndicator?.isVisible = true
+                    map?.positionIndicator?.isAccuracyIndicatorVisible = true
+
+                    val pc: PointF = map?.transformCenter!!
+                    val pointF = PointF(pc.x, pc.y * 85 / 50)
+                    map?.transformCenter = pointF
+
+//                    posManager = getInstance()
+//                    posManager?.addListener(
+//                        WeakReference(positionListener)
+//                    )
 
                     /* Set the zoom level to the average between min and max zoom level. */
                     map!!.zoomLevel = (map!!.maxZoomLevel + map!!.minZoomLevel) / 2
@@ -71,6 +96,30 @@ class MapFragmentView(
                         .show()
                 }
             }
+        }
+    }
+
+    private val positionListener: OnPositionChangedListener = object : OnPositionChangedListener {
+
+        override fun onPositionUpdated(
+            method: LocationMethod,
+            position: GeoPosition?, isMapMatched: Boolean
+        ) {
+            // set the center only when the app is in the foreground
+            // to reduce CPU consumption
+            if (!isPaused) {
+                map!!.setCenter(
+                    position!!.coordinate,
+                    Map.Animation.NONE
+                )
+            }
+        }
+
+        override fun onPositionFixChanged(
+            method: LocationMethod,
+            status: LocationStatus
+        ) {
+
         }
     }
 
@@ -304,6 +353,21 @@ class MapFragmentView(
 
     private fun Int.toKilometers(): Double {
         return this / 1000.0
+    }
+
+    fun onResume() {
+        isPaused = false
+        posManager?.start(LocationMethod.GPS_NETWORK)
+    }
+
+    fun onPause() {
+        isPaused = true
+        posManager?.stop()
+    }
+
+    fun onDestroy() {
+        map = null
+        posManager?.removeListener(positionListener)
     }
 
     init {
