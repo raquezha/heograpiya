@@ -29,6 +29,9 @@ dependencies {
     testImplementation _test.mockk_android
     androidTestImplementation _test.junit_test
     androidTestImplementation _test.espresso
+
+    testImplementation _test.hilt_test
+    testAnnotationProcessor _test.hilt_compilter
 }
 
 tasks.withType(Test) {
