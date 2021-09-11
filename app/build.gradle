@@ -4,18 +4,13 @@ plugins {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
-    implementation _androidx.appcompat
     implementation _androidx.contraintlayout
     implementation _androidx.livedata
     implementation _androidx.viewmodel
     implementation _androidx.navigation
     implementation _androidx.navigation_ui
-
-    implementation _google.material
-
-    implementation _android.viewbinding
 
     api project(':shared')
     api project(':splash')

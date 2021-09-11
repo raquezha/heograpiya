@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="false"
@@ -18,17 +20,21 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:theme="@style/Theme.Heograpiya" >
+        android:theme="@style/Theme.Heograpiya.NoActionBar" >
         <activity
-            android:name=".MainActivity"
+            android:name=".HereMapsActivity"
             android:exported="true"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <meta-data android:name="com.here.android.maps.appid" android:value="190j7xsGnwCpjpxnf3Nj"/>
+        <meta-data android:name="com.here.android.maps.apptoken" android:value="1WvuzuDYnRVbBHy5y62HWQ"/>
+        <meta-data android:name="com.here.android.maps.license.key" android:value="UF5uj/g8PNjdl+xr+z42TfdL/U05wt1dIlkFZK6c0l8iuSufyB3e3lzykKJ+BPF7CSxYftyH7lilmiOtbV4hXfLh5gKPdxHBlGzfucnO+zERX8d8vi06UT5K0m7nTeKkqIuwNJpyXNXnqrylFb6NyTHlrb/sEp/bkBd/RTwtwWVExkk3vlHgjIqkPH0BJ121KamXvFMGf9+GEMrI5jnwYoM9x2qJDfk802McjYxZC4F4nnqeIu5Li77BpfsqY+8v/VYE9KVzCM5qAtHNmwZNOM4A0evhcVm75z727MimV+5kr+agOUx1T+3YGdYUTDsd+7yJRhv3Ec3vILYtonebhSlNwy5NlprsMbOX7IA98V5pOvMeR7V5bN5D2InV92itTQaEW86ir+2u6v5NE0JlDa+HPZg/+PhhSdGyogJ7cSpR+DIGY9ul1A/4OoOrtUAm8rxrntiF9/XVTN2rmQ2w+6nxK/C02KpAuyNVBmbyxNg1VrHutqb9x/RgcLrUOqYsbV5/33eaOStyQhLqrEQjs1l34MJ23v6hD0KC820OFbtHJL/Bl9jwm0VPit8ZXAxBUXBR7xDrq/TpkVpZXre23fpT7T2M1viMQKyZoEPPZmfcf1c9/3xvje3rDb7OE7VIo/VUMMkJZMW5KIDtVc2NV+uP4P8zJAfn1CuV/yvqq1Q="/>
+
+    </application>
 </manifest>
