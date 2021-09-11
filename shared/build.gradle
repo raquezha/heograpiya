@@ -31,7 +31,7 @@ dependencies {
     androidTestImplementation _test.espresso
 
     testImplementation _test.hilt_test
-    testAnnotationProcessor _test.hilt_compilter
+    kapt _test.hilt_compiler
 }
 
 tasks.withType(Test) {
