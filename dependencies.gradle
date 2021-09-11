@@ -13,10 +13,10 @@ ext {
             hilt_compiler  : 'com.google.dagger:hilt-compiler:2.38.1'
     ]
     _jetbrains = [
-            kotlin : 'org.jetbrains.kotlin:kotlin-stdlib:1.5.0'
+            kotlin : 'org.jetbrains.kotlin:kotlin-stdlib:1.5.30'
     ]
     _android = [
-            viewbinding : 'com.android.databinding:viewbinding:7.0.0-alpha15'
+            viewbinding : 'com.android.databinding:viewbinding:7.0.2'
     ]
     _google = [
             hilt            : 'com.google.dagger:hilt-android:2.38.1',
