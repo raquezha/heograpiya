@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 dependencies {
@@ -11,6 +13,9 @@ dependencies {
     implementation _androidx.viewmodel
     implementation _androidx.navigation
     implementation _androidx.navigation_ui
+
+    implementation _google.hilt
+    kapt _google.hilt_compiler
 
     api project(':shared')
     api project(':splash')

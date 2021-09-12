@@ -5,31 +5,32 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.0-alpha11'
         //noinspection DifferentKotlinGradleVersion
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30'
         classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'nl.neotech.plugin:android-root-coverage-plugin:1.4.0'
-        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.0-RC3'
-        classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.1.0'
-
+//        classpath 'nl.neotech.plugin:android-root-coverage-plugin:1.4.0'
+        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1'
+        classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.2.0'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-plugins {
-    id "nl.neotech.plugin.rootcoverage" version "1.4.0"
-}
+//plugins {
+//    id "nl.neotech.plugin.rootcoverage" version "1.4.0"
+//}
 
 
-allprojects {
-    jacoco {
-        toolVersion = "0.8.7"
-    }
-}
+//allprojects {
+//    jacoco {
+//        toolVersion = "0.8.7"
+//    }
+//}
 
 tasks.withType(Test) {
     useJUnitPlatform()
@@ -77,7 +78,7 @@ subprojects {
                     }
 
                     debug {
-                       // testCoverageEnabled true
+                       testCoverageEnabled true
                     }
                 }
 
@@ -112,7 +113,7 @@ subprojects {
 }
 
 
-apply plugin: 'nl.neotech.plugin.rootcoverage'
+//apply plugin: 'nl.neotech.plugin.rootcoverage'
 
 task clean(type: Delete) {
     delete rootProject.buildDir
